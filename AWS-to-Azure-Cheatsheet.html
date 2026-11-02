@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS to Azure Cheatsheet</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1D5BB8}a:hover{color:#123E80}
+.r{display:grid;grid-template-columns:176px 24px 1fr;column-gap:8px;align-items:center;height:21px;font-size:12.5px;border-top:1px solid #ECEEF1}
+.r:first-of-type{border-top:0}
+.a{color:#15171C;white-space:nowrap}
+.z{color:#123E80;font-weight:600;white-space:nowrap}
+.m{width:24px;height:16px;border-radius:8px;box-sizing:border-box;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center}
+.eq{background:#15171C;color:#FFFFFF}
+.ap{border:1.25px solid #15171C;color:#15171C;background:#FFFFFF}
+.tip{position:relative;cursor:help;font-family:inherit;padding:0;margin:0}
+.tip:hover,.tip:focus{background:#15171C;color:#FFFFFF;z-index:60;outline:none}
+.tip:focus-visible{box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1D5BB8}
+.tt{display:none;position:absolute;left:-10px;bottom:calc(100% + 9px);width:300px;padding:10px 12px;border-radius:8px;background:#15171C;color:#FFFFFF;font-size:12px;font-weight:400;line-height:1.45;letter-spacing:0;text-align:left;white-space:normal;z-index:60;box-shadow:0 6px 18px rgba(21,23,28,.25)}
+.tt::after{content:"";position:absolute;left:16px;top:100%;border:6px solid transparent;border-top-color:#15171C}
+.tt b{font-weight:700;color:#BFD4F5}
+.tip:hover .tt,.tip:focus .tt{display:block}
+.c{border:1px solid #DADDE3;border-radius:10px;padding:9px 12px 6px}
+.h{display:flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#15171C;margin-bottom:3px}
+.h svg{width:16px;height:16px;flex:none}
+.chip{height:36px;border-radius:8px;border:1px solid #C9CED6;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;color:#15171C;text-align:center;padding:0 6px}
+.g{display:flex;flex-direction:column;gap:4px}
+.gn{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#1D5BB8}
+.gl{font-size:13px;font-weight:700;color:#15171C}
+.gt{font-size:12.5px;line-height:1.45;color:#343A46}
+</style>
+
+<style>body{display:flex;justify-content:center;background:#EEF0F3} @media print{body{background:#fff} @page{size:1056px 1632px;margin:0}}</style>
+</head>
+<body>
+
+<div style="width: 1056px; height: 1632px; box-sizing: border-box; padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; font-family: Inter, sans-serif; color: #15171C; background: #FFFFFF">
+
+<!-- Header -->
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 14px; border-bottom: 2px solid #15171C">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #4B5260">Solutions architecture reference · November 2026</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1.05; letter-spacing: -.01em"><span style="color: #B4530A">AWS</span> <span style="color: #4B5260">→</span> <span style="color: #1D5BB8">Azure</span> service map</div>
+<div style="font-size: 15px; color: #343A46">What each AWS building block is called on Azure, and where the match is only approximate.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: #343A46; flex: none">
+<div style="display: flex; align-items: center; gap: 8px"><span class="m eq">=</span>Direct equivalent</div>
+<div style="display: flex; align-items: center; gap: 8px"><span class="m ap">≈</span>Close, with real differences</div>
+<div style="display: flex; align-items: center; gap: 8px"><span style="color: #123E80; font-weight: 600">Bold blue</span>= the Azure name</div>
+<div style="display: flex; align-items: center; gap: 8px; color: #15171C; font-weight: 600">Hover any ≈ to see how it differs</div>
+</div>
+</div>
+
+<!-- Hierarchy -->
+<div class="c" style="padding: 14px 16px 12px">
+<div class="h" style="margin-bottom: 10px"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-4h12v4"></path></svg>How the layers line up (read down each column)</div>
+<div style="display: grid; grid-template-columns: 56px repeat(6, minmax(0, 1fr)); gap: 8px 10px; align-items: center">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #B4530A">AWS</div>
+<div class="chip">Organization</div>
+<div class="chip">Org. unit (OU)</div>
+<div class="chip">Account</div>
+<div class="chip" style="border-style: dashed; color: #4B5260; font-weight: 500">No layer (tags)</div>
+<div class="chip">VPC</div>
+<div class="chip">Subnet · one AZ</div>
+<div style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #1D5BB8">AZURE</div>
+<div class="chip">Entra tenant</div>
+<div class="chip">Management group</div>
+<div class="chip">Subscription</div>
+<div class="chip" style="background: #E6EEFA; border: 2px solid #1D5BB8">Resource group</div>
+<div class="chip">VNet</div>
+<div class="chip" style="background: #E6EEFA; border: 2px solid #1D5BB8">Subnet · all zones</div>
+</div>
+<div style="font-size: 12.5px; color: #343A46; margin-top: 10px">Guardrails attach at the OU or management group. Azure adds a mandatory resource group under each subscription and moves the zone choice from the subnet to each VM, disk or IP.</div>
+</div>
+
+<!-- Two-column service map -->
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start">
+
+<!-- LEFT -->
+<div style="display: flex; flex-direction: column; gap: 12px">
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"></rect><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"></path></svg>Compute and containers</div>
+<div class="r"><span class="a">EC2</span><span class="m eq">=</span><span class="z">Virtual Machines</span></div>
+<div class="r"><span class="a">Auto Scaling group</span><span class="m eq">=</span><span class="z">VM Scale Sets</span></div>
+<div class="r"><span class="a">Spot / Savings Plans</span><span class="m eq">=</span><span class="z">Spot VMs / savings plans</span></div>
+<div class="r"><span class="a">Lambda</span><span class="m eq">=</span><span class="z">Azure Functions</span></div>
+<div class="r"><span class="a">ECS / Fargate</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Container Apps</b> is serverless containers on managed Kubernetes, with scale-to-zero. <b>ACI</b> runs single container groups with no orchestration. Neither has ECS's task and service model.</span></button><span class="z">Container Apps / ACI</span></div>
+<div class="r"><span class="a">EKS</span><span class="m eq">=</span><span class="z">AKS</span></div>
+<div class="r"><span class="a">ECR</span><span class="m eq">=</span><span class="z">Container Registry</span></div>
+<div class="r"><span class="a">Elastic Beanstalk</span><span class="m eq">=</span><span class="z">App Service</span></div>
+</div>
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h18v4H3zM5 11v9h14v-9M10 15h4"></path></svg>Storage</div>
+<div class="r"><span class="a">S3</span><span class="m eq">=</span><span class="z">Blob Storage (ADLS Gen2)</span></div>
+<div class="r"><span class="a">S3 Standard · IA · Glacier</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Tiers are set per blob and moved with lifecycle rules. <b>Archive</b> is offline: rehydrating takes hours, like Glacier Flexible or Deep Archive. Minimum days: Cool 30, Cold 90, Archive 180.</span></button><span class="z">Hot · Cool · Cold · Archive</span></div>
+<div class="r"><span class="a">EBS</span><span class="m eq">=</span><span class="z">Managed Disks</span></div>
+<div class="r"><span class="a">EFS</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">NFS shares need the <b>Premium</b> tier, and capacity is provisioned rather than growing on its own like EFS. <b>Azure NetApp Files</b> is the high-performance NFS option.</span></button><span class="z">Azure Files (NFS)</span></div>
+<div class="r"><span class="a">FSx for Windows</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">A managed SMB share, not a full Windows file server. Joins AD through <b>Entra Domain Services</b> or on-prem AD DS. <b>Azure File Sync</b> can cache it on Windows servers.</span></button><span class="z">Azure Files (SMB)</span></div>
+<div class="r"><span class="a">AWS Backup</span><span class="m eq">=</span><span class="z">Azure Backup</span></div>
+</div>
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg>Databases and caching</div>
+<div class="r"><span class="a">RDS (SQL Server)</span><span class="m eq">=</span><span class="z">Azure SQL Database</span></div>
+<div class="r"><span class="a">RDS (PostgreSQL, MySQL)</span><span class="m eq">=</span><span class="z">Azure DB for PostgreSQL / MySQL</span></div>
+<div class="r"><span class="a">RDS Multi-AZ</span><span class="m eq">=</span><span class="z">Zone-redundant HA</span></div>
+<div class="r"><span class="a">Aurora</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">There's no Aurora twin. <b>Hyperscale</b> is SQL Server-compatible, with storage separated from compute up to 128 TB. For PostgreSQL or MySQL, use <b>Flexible Server</b>.</span></button><span class="z">Azure SQL Hyperscale</span></div>
+<div class="r"><span class="a">DynamoDB</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Cosmos DB is multi-model: NoSQL, MongoDB, Cassandra, Gremlin and Table APIs. Throughput is billed in <b>request units (RU/s)</b>, not RCUs and WCUs, and it has five consistency levels.</span></button><span class="z">Cosmos DB</span></div>
+<div class="r"><span class="a">DynamoDB global tables</span><span class="m eq">=</span><span class="z">Cosmos DB multi-region writes</span></div>
+<div class="r"><span class="a">ElastiCache</span><span class="m eq">=</span><span class="z">Azure Managed Redis</span></div>
+</div>
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Data, analytics and streaming</div>
+<div class="r"><span class="a">Glue (ETL)</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Data Factory is orchestration first: pipelines, copy activity and mapping data flows. Heavy Spark transforms usually run in <b>Databricks</b>, called from ADF.</span></button><span class="z">Data Factory</span></div>
+<div class="r"><span class="a">Glue Data Catalog</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Purview</b> is a governance catalog with lineage and classification. <b>Unity Catalog</b> governs Databricks tables. Neither is a shared metastore that every query engine reads, as Glue is for Athena and EMR.</span></button><span class="z">Purview / Unity Catalog</span></div>
+<div class="r"><span class="a">EMR</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Azure Databricks</b> is a first-party Azure service and the usual choice for Spark. <b>HDInsight</b> runs open-source Hadoop, Spark and Kafka clusters but gets less investment.</span></button><span class="z">Azure Databricks / HDInsight</span></div>
+<div class="r"><span class="a">Athena</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Both query files in the lake with SQL and charge per TB scanned. Synapse serverless uses <b>T-SQL</b>; Athena uses Trino/Presto SQL.</span></button><span class="z">Synapse serverless SQL</span></div>
+<div class="r"><span class="a">Redshift</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Synapse dedicated SQL pool</b> is the closest MPP warehouse, but Microsoft's new investment goes to <b>Fabric Warehouse</b>, which is priced by Fabric capacity.</span></button><span class="z">Fabric Warehouse / Synapse</span></div>
+<div class="r"><span class="a">Kinesis Data Streams</span><span class="m eq">=</span><span class="z">Event Hubs</span></div>
+<div class="r"><span class="a">QuickSight</span><span class="m eq">=</span><span class="z">Power BI</span></div>
+</div>
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"></path></svg>Integration and messaging</div>
+<div class="r"><span class="a">SQS</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Service Bus</b> covers SQS FIFO needs: sessions, ordering, dead-lettering and transactions. <b>Queue Storage</b> is the simple, low-cost option, with 64 KB messages.</span></button><span class="z">Service Bus / Queue Storage</span></div>
+<div class="r"><span class="a">SNS</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Service Bus topics</b> give durable pub/sub between services. <b>Event Grid</b> pushes events out to many subscribers. SMS and mobile push are separate services (Notification Hubs, Communication Services).</span></button><span class="z">Service Bus topics / Event Grid</span></div>
+<div class="r"><span class="a">EventBridge</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Event Grid routes Azure resource events and custom events, with filters. EventBridge <b>Scheduler</b> and <b>Pipes</b> have no direct match; use Logic Apps or timer-triggered Functions.</span></button><span class="z">Event Grid</span></div>
+<div class="r"><span class="a">Step Functions</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Logic Apps</b> is a low-code workflow designer with hundreds of connectors. <b>Durable Functions</b> is code-first orchestration, closer to Step Functions for developers.</span></button><span class="z">Logic Apps / Durable Functions</span></div>
+<div class="r"><span class="a">API Gateway</span><span class="m eq">=</span><span class="z">API Management</span></div>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div style="display: flex; flex-direction: column; gap: 12px">
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"></circle><circle cx="5" cy="19" r="2.5"></circle><circle cx="19" cy="19" r="2.5"></circle><path d="M11 7.3 6.2 16.8M13 7.3l4.8 9.5M7.5 19h9"></path></svg>Networking and delivery</div>
+<div class="r"><span class="a">VPC</span><span class="m eq">=</span><span class="z">Virtual Network (VNet)</span></div>
+<div class="r"><span class="a">Subnet (one AZ)</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">An Azure subnet covers every zone in the region. You choose the zone on each <b>VM, disk or public IP</b>, so you don't need a subnet per AZ.</span></button><span class="z">Subnet (spans zones)</span></div>
+<div class="r"><span class="a">Security group / NACL</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">NSGs are stateful, run in priority order and allow explicit <b>deny</b>. Attach one to a subnet (like a NACL) or a NIC (like a security group). <b>Application security groups</b> let rules target groups of VMs.</span></button><span class="z">Network security group</span></div>
+<div class="r"><span class="a">NAT gateway</span><span class="m eq">=</span><span class="z">NAT Gateway</span></div>
+<div class="r"><span class="a">S3 gateway endpoint</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Both keep traffic on the backbone without giving the service a private IP, and both are free. Service endpoints work for many Azure PaaS services, not only storage.</span></button><span class="z">Service endpoint</span></div>
+<div class="r"><span class="a">PrivateLink endpoint</span><span class="m eq">=</span><span class="z">Private Endpoint</span></div>
+<div class="r"><span class="a">Transit Gateway</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Virtual WAN</b> gives you Microsoft-managed hubs with routing, VPN and ExpressRoute built in. <b>Hub-spoke</b> is a hub VNet you build with Azure Firewall or an NVA, because VNet peering isn't transitive.</span></button><span class="z">Virtual WAN / hub-spoke</span></div>
+<div class="r"><span class="a">Direct Connect</span><span class="m eq">=</span><span class="z">ExpressRoute</span></div>
+<div class="r"><span class="a">Route 53</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Azure DNS</b> hosts zones. <b>Traffic Manager</b> does DNS-based routing (priority, weighted, performance, geographic). Route 53 does both in one service.</span></button><span class="z">Azure DNS + Traffic Manager</span></div>
+<div class="r"><span class="a">ALB</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Application Gateway is a regional layer-7 load balancer with an optional WAF. For global layer 7 with edge caching, use <b>Front Door</b>.</span></button><span class="z">Application Gateway</span></div>
+<div class="r"><span class="a">NLB</span><span class="m eq">=</span><span class="z">Azure Load Balancer</span></div>
+<div class="r"><span class="a">CloudFront</span><span class="m eq">=</span><span class="z">Azure Front Door</span></div>
+<div class="r"><span class="a">Global Accelerator</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip"><b>Front Door</b> handles global HTTP(S). For TCP/UDP with a <b>static anycast IP</b> and fast regional failover, use the cross-region (global tier) Load Balancer.</span></button><span class="z">Front Door / cross-region LB</span></div>
+</div>
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg>Identity, security and governance</div>
+<div class="r"><span class="a">IAM users and roles</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Entra ID is a <b>tenant-wide directory</b> that also handles Microsoft 365 and SaaS sign-in. Each user exists once and gets access through RBAC at any scope, not per account.</span></button><span class="z">Microsoft Entra ID</span></div>
+<div class="r"><span class="a">IAM policies</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">RBAC assigns <b>roles at a scope</b> that inherit downward: management group, subscription, resource group, resource. There's no general equivalent of JSON resource policies like S3 bucket policies.</span></button><span class="z">Azure RBAC</span></div>
+<div class="r"><span class="a">IAM role for EC2 / Lambda</span><span class="m eq">=</span><span class="z">Managed identity</span></div>
+<div class="r"><span class="a">Cognito</span><span class="m eq">=</span><span class="z">Entra External ID</span></div>
+<div class="r"><span class="a">Organizations</span><span class="m eq">=</span><span class="z">Management groups</span></div>
+<div class="r"><span class="a">Service control policies</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Azure Policy can deny, and also audit, modify or deploy missing settings. It governs <b>resource properties</b> (region, SKU, tags), not the actions a role may take the way SCPs cap permissions.</span></button><span class="z">Azure Policy (deny effect)</span></div>
+<div class="r"><span class="a">CloudTrail</span><span class="m eq">=</span><span class="z">Activity log</span></div>
+<div class="r"><span class="a">KMS / Secrets Manager</span><span class="m eq">=</span><span class="z">Key Vault</span></div>
+<div class="r"><span class="a">GuardDuty / Security Hub</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Defender for Cloud combines posture management (Security Hub) with workload threat detection (GuardDuty, Inspector). <b>Microsoft Sentinel</b> is the SIEM above it.</span></button><span class="z">Defender for Cloud</span></div>
+<div class="r"><span class="a">WAF / Shield</span><span class="m eq">=</span><span class="z">Azure WAF / DDoS Protection</span></div>
+<div class="r"><span class="a">GovCloud (US)</span><span class="m eq">=</span><span class="z">Azure Government</span></div>
+</div>
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"></path></svg>AI and ML</div>
+<div class="r"><span class="a">SageMaker AI</span><span class="m eq">=</span><span class="z">Azure Machine Learning</span></div>
+<div class="r"><span class="a">Bedrock</span><span class="m eq">=</span><span class="z">Microsoft Foundry</span></div>
+<div class="r"><span class="a">Rekognition / Textract</span><span class="m eq">=</span><span class="z">AI Vision / Doc Intelligence</span></div>
+<div class="r"><span class="a">Transcribe / Polly</span><span class="m eq">=</span><span class="z">Azure AI Speech</span></div>
+</div>
+
+<div class="c">
+<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"></path></svg>Operations, cost, DR and migration</div>
+<div class="r"><span class="a">CloudWatch</span><span class="m eq">=</span><span class="z">Azure Monitor</span></div>
+<div class="r"><span class="a">X-Ray</span><span class="m eq">=</span><span class="z">Application Insights</span></div>
+<div class="r"><span class="a">CloudFormation / CDK</span><span class="m eq">=</span><span class="z">ARM templates / Bicep</span></div>
+<div class="r"><span class="a">Systems Manager</span><button type="button" class="m ap tip" aria-label="How it differs">≈<span class="tt" role="tooltip">Its features are split across services: <b>Update Manager</b> (patching), <b>Automation</b> (runbooks), Run Command, Bastion (sessions) and App Configuration (parameters). <b>Azure Arc</b> extends them to non-Azure servers.</span></button><span class="z">Automation / Update Manager</span></div>
+<div class="r"><span class="a">Cost Explorer / Budgets</span><span class="m eq">=</span><span class="z">Cost Management</span></div>
+<div class="r"><span class="a">Elastic Disaster Recovery</span><span class="m eq">=</span><span class="z">Azure Site Recovery</span></div>
+<div class="r"><span class="a">Migration Service (MGN)</span><span class="m eq">=</span><span class="z">Azure Migrate</span></div>
+</div>
+
+</div>
+</div>
+
+<!-- Gotchas -->
+<div style="border-top: 2px solid #15171C; padding-top: 12px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px">Six differences that don't map 1:1</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px">
+<div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">01</span><span class="gl">Resource groups are mandatory</span></div><div class="gt">Every Azure resource sits in exactly one. They scope RBAC, policy, deletion and cost rollups.</div></div>
+<div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">02</span><span class="gl">Identity sits above billing</span></div><div class="gt">One Entra tenant serves every subscription. On AWS, IAM lives inside each account.</div></div>
+<div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">03</span><span class="gl">Subnets span zones</span></div><div class="gt">Pick the zone per VM, disk or IP, not per subnet. "One subnet per AZ" is not an Azure pattern.</div></div>
+<div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">04</span><span class="gl">NSGs can deny</span></div><div class="gt">NSG rules have priorities and explicit deny. Security groups are allow-only.</div></div>
+<div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">05</span><span class="gl">Service ≠ Private Endpoint</span></div><div class="gt">A service endpoint only changes routing, like an S3 gateway endpoint. A Private Endpoint puts a private IP in your VNet, like PrivateLink.</div></div>
+<div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">06</span><span class="gl">Zones aren't everywhere</span></div><div class="gt">Not every Azure region has availability zones, and zone redundancy is often opt-in per service.</div></div>
+</div>
+<div style="font-size: 11.5px; color: #5A6170">Sources: Microsoft Learn, "AWS to Azure services comparison" (updated May 2026); Microsoft retirement notices for Azure Cache for Redis and Azure AD B2C. Names current as of Nov 2026.</div>
+</div>
+
+</div>
+
+</body>
+</html>
