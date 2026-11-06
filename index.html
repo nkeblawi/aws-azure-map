@@ -23,6 +23,24 @@ a{color:#1D5BB8}a:hover{color:#123E80}
 .tt::after{content:"";position:absolute;left:16px;top:100%;border:6px solid transparent;border-top-color:#15171C}
 .tt b{font-weight:700;color:#BFD4F5}
 .tip:hover .tt,.tip:focus .tt{display:block}
+.tt{width:min(300px,78vw)}
+@media (max-width:960px){
+.root{min-height:0 !important;padding:24px 20px !important}
+.cols{grid-template-columns:minmax(0,1fr) !important}
+.gots{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.hierwrap{overflow-x:auto}
+.hier{min-width:720px}
+}
+@media (max-width:600px){
+.root{padding:18px 14px !important}
+.hdr{flex-direction:column !important;align-items:flex-start !important}
+.ttl{font-size:32px !important}
+.gots{grid-template-columns:minmax(0,1fr) !important}
+.r{grid-template-columns:minmax(0,1fr) 24px minmax(0,1.15fr);height:auto;min-height:21px;padding:3px 0}
+.a,.z{white-space:normal}
+.tt{left:50%;transform:translateX(-50%)}
+.tt::after{left:50%;margin-left:-6px}
+}
 .c{border:1px solid #DADDE3;border-radius:10px;padding:9px 12px 6px}
 .h{display:flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#15171C;margin-bottom:3px}
 .h svg{width:16px;height:16px;flex:none}
@@ -33,31 +51,31 @@ a{color:#1D5BB8}a:hover{color:#123E80}
 .gt{font-size:12.5px;line-height:1.45;color:#343A46}
 </style>
 
-<style>body{display:flex;justify-content:center;background:#EEF0F3} @media print{body{background:#fff} @page{size:1056px 1632px;margin:0}}</style>
+<style>html{background:#FFFFFF} @media print{@page{size:1056px 1632px;margin:0}}</style>
 </head>
 <body>
 
-<div style="width: 1056px; height: 1632px; box-sizing: border-box; padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; font-family: Inter, sans-serif; color: #15171C; background: #FFFFFF">
+<div class="root" style="width: 100%; max-width: 1056px; min-height: 1632px; margin: 0 auto; flex-shrink: 0; box-sizing: border-box; padding: 36px 40px; gap: 18px; display: flex; flex-direction: column; justify-content: space-between; font-family: Inter, sans-serif; color: #15171C; background: #FFFFFF">
 
 <!-- Header -->
-<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 14px; border-bottom: 2px solid #15171C">
+<div class="hdr" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 14px; border-bottom: 2px solid #15171C">
 <div style="display: flex; flex-direction: column; gap: 4px">
 <div style="font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #4B5260">Solutions architecture reference · November 2026</div>
-<div style="font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1.05; letter-spacing: -.01em"><span style="color: #B4530A">AWS</span> <span style="color: #4B5260">→</span> <span style="color: #1D5BB8">Azure</span> service map</div>
+<div class="ttl" style="font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1.05; letter-spacing: -.01em"><span style="color: #B4530A">AWS</span> <span style="color: #4B5260">→</span> <span style="color: #1D5BB8">Azure</span> service map</div>
 <div style="font-size: 15px; color: #343A46">What each AWS building block is called on Azure, and where the match is only approximate.</div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: #343A46; flex: none">
 <div style="display: flex; align-items: center; gap: 8px"><span class="m eq">=</span>Direct equivalent</div>
 <div style="display: flex; align-items: center; gap: 8px"><span class="m ap">≈</span>Close, with real differences</div>
 <div style="display: flex; align-items: center; gap: 8px"><span style="color: #123E80; font-weight: 600">Bold blue</span>= the Azure name</div>
-<div style="display: flex; align-items: center; gap: 8px; color: #15171C; font-weight: 600">Hover any ≈ to see how it differs</div>
+<div style="display: flex; align-items: center; gap: 8px; color: #15171C; font-weight: 600">Hover or tap any ≈ to see how it differs</div>
 </div>
 </div>
 
 <!-- Hierarchy -->
-<div class="c" style="padding: 14px 16px 12px">
+<div class="c hierwrap" style="padding: 14px 16px 12px">
 <div class="h" style="margin-bottom: 10px"><svg viewBox="0 0 24 24" fill="none" stroke="#15171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-4h12v4"></path></svg>How the layers line up (read down each column)</div>
-<div style="display: grid; grid-template-columns: 56px repeat(6, minmax(0, 1fr)); gap: 8px 10px; align-items: center">
+<div class="hier" style="display: grid; grid-template-columns: 56px repeat(6, minmax(0, 1fr)); gap: 8px 10px; align-items: center">
 <div style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #B4530A">AWS</div>
 <div class="chip">Organization</div>
 <div class="chip">Org. unit (OU)</div>
@@ -77,7 +95,7 @@ a{color:#1D5BB8}a:hover{color:#123E80}
 </div>
 
 <!-- Two-column service map -->
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start">
+<div class="cols" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start">
 
 <!-- LEFT -->
 <div style="display: flex; flex-direction: column; gap: 12px">
@@ -197,7 +215,7 @@ a{color:#1D5BB8}a:hover{color:#123E80}
 <!-- Gotchas -->
 <div style="border-top: 2px solid #15171C; padding-top: 12px; display: flex; flex-direction: column; gap: 10px">
 <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px">Six differences that don't map 1:1</div>
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px">
+<div class="gots" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px">
 <div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">01</span><span class="gl">Resource groups are mandatory</span></div><div class="gt">Every Azure resource sits in exactly one. They scope RBAC, policy, deletion and cost rollups.</div></div>
 <div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">02</span><span class="gl">Identity sits above billing</span></div><div class="gt">One Entra tenant serves every subscription. On AWS, IAM lives inside each account.</div></div>
 <div class="g"><div style="display: flex; gap: 8px; align-items: baseline"><span class="gn">03</span><span class="gl">Subnets span zones</span></div><div class="gt">Pick the zone per VM, disk or IP, not per subnet. "One subnet per AZ" is not an Azure pattern.</div></div>
